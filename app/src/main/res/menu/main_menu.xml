@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/ic_baseline_menu_24">
+        </item>
+    </group>
+
+        <item
+            android:title="Profile">
+
+            <menu>
+                <group android:checkableBehavior="single">
+
+                    <item
+                        android:id="@+id/download_child_version"
+                        android:title="Download Child Version"
+                        android:icon="@drawable/ic_baseline_menu_24">                    </item>
+
+                    <item
+                        android:id="@+id/user_guide"
+                        android:title="User Guide"
+                        android:icon="@drawable/ic_baseline_menu_24">                    </item>
+
+                    <item
+                        android:id="@+id/privacy_policy"
+                        android:title="Privacy Policy"
+                        android:icon="@drawable/ic_baseline_menu_24">                    </item>
+
+                    <item
+                        android:id="@+id/nav_logout"
+                        android:title="Logout"
+                        android:icon="@drawable/ic_baseline_menu_24">
+                    </item>
+                </group>
+
+            </menu>
+        </item>
+
+        <item
+            android:title="Communication">
+
+            <menu>
+
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_share"
+                        android:title="Share"
+                        android:icon="@drawable/ic_baseline_menu_24">                    </item>
+                    <item
+                        android:id="@+id/nav_ratting"
+                        android:title="Rating"
+                        android:icon="@drawable/ic_baseline_menu_24">                    </item>
+                    <item
+                        android:id="@+id/nav_aboutDev"
+                        android:title="About Developer"
+                        android:icon="@drawable/ic_baseline_menu_24">                    </item>
+                </group>
+            </menu>
+        </item>
+
+
+</menu>
