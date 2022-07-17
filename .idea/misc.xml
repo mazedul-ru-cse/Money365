@@ -7,8 +7,11 @@
         <entry key="..\:/Project/Money365/app/src/main/res/drawable/dashboard_balance_back.xml" value="0.1" />
         <entry key="..\:/Project/Money365/app/src/main/res/drawable/edit_text_border.xml" value="0.141" />
         <entry key="..\:/Project/Money365/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1145" />
-        <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_dashboard.xml" value="0.16" />
+        <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_dashboard.xml" value="0.1" />
+        <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_interstitial_ads_show.xml" value="0.16" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_main.xml" value="0.14945652173913043" />
+        <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_task.xml" value="0.22" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_user_login.xml" value="0.15353260869565216" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_user_registration.xml" value="0.18" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/header.xml" value="0.13451086956521738" />

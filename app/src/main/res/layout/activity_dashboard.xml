@@ -5,7 +5,7 @@
     android:id="@+id/draw_layout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/background_all"
     android:layout_height="match_parent"
 
     tools:context=".Dashboard"
@@ -127,14 +127,15 @@
                   android:layout_height="wrap_content">
 
                   <View
+                      android:layout_gravity="center"
                       android:background="@drawable/coin"
-                      android:layout_width="30dp"
-                      android:layout_height="30dp"/>
+                      android:layout_width="20dp"
+                      android:layout_height="20dp"/>
 
                   <TextView
                       android:layout_marginLeft="10dp"
                       android:layout_marginTop="5dp"
-
+                      android:layout_gravity="center"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:textSize="15sp"
@@ -158,7 +159,6 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:background="@drawable/background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -214,6 +214,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
+                        android:onClick="profile"
                         android:layout_rowWeight="1"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
@@ -418,7 +419,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:background="@drawable/help"
+                                android:background="@drawable/history"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"/>
@@ -430,7 +431,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="10dp"
-                                android:text="Help"/>
+                                android:text="History"/>
 
                         </LinearLayout>
 

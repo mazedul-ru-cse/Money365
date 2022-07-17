@@ -30,4 +30,8 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="refer_code">Refer Code</string>
     <string name="balance">Balance</string>
+    <string name="daily_task">Daily Task</string>
+
+
+    <string name="refer_note">আপনার বন্ধুদেরকে রেফার করুন। প্রতি রেফারের জন্য পাবেন ৫ টাকা করে।</string>
 </resources>

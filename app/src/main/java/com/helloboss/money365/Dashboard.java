@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.helloboss.money365.task.Task;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -81,6 +83,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             case R.id.nav_home:
         }
 
+        leftSide();
+
         return true;
     }
 
@@ -94,6 +98,11 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     }
 
     public void task(View view) {
-        Toast.makeText(this, "Task", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(Dashboard.this, Task.class));
+    }
+
+    public void profile(View view) {
+
+        startActivity(new Intent(Dashboard.this, Profile.class));
     }
 }

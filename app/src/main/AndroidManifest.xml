@@ -11,11 +11,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Money365"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
+            android:name=".workshow.InterstitialAdsShow"
+            android:exported="false" />
+        <activity
+            android:name=".task.Task"
+            android:exported="false" />
         <activity
             android:name=".Dashboard"
             android:exported="false"
-            android:theme="@style/Theme.Money365.NoActionBar"/>
+            android:theme="@style/Theme.Money365.NoActionBar" />
         <activity
             android:name=".UserRegistration"
             android:exported="false" />

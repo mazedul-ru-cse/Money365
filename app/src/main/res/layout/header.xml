@@ -6,20 +6,22 @@
     android:orientation="vertical"
     android:padding="10dp"
     android:gravity="top"
-    android:background="#FFA000">
+    android:background="@drawable/header">
 
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:background="@drawable/profile"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp">
 
     </ImageView>
     <TextView
-        android:id="@+id/parentName"
+        android:id="@+id/h_user_name"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:layout_marginTop="5dp"
         android:text="M A Mazedul Islam"
 
@@ -27,12 +29,13 @@
     </TextView>
 
     <TextView
-        android:id="@+id/userEmailHeader"
+        android:id="@+id/h_user_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:layout_marginTop="5dp"
         android:textStyle="bold"
-        android:text="Email"
+        android:text="ID : "
         android:textSize="13sp">
 
     </TextView>
