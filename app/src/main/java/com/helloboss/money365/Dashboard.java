@@ -105,4 +105,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         startActivity(new Intent(Dashboard.this, Profile.class));
     }
+
+    public void withdraw(View view) {
+        startActivity(new Intent(Dashboard.this, Withdraw.class));
+    }
 }
