@@ -19,19 +19,18 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:gravity="center"
-            android:text="Sign in"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/app_icon_"
+            android:layout_marginBottom="40dp"/>
 
         <EditText
             android:id="@+id/loginEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_outline_email_24"
+            android:drawablePadding="20dp"
             android:background="@drawable/edit_text_border"
             android:hint="Email Address"
             android:padding="10dp"
@@ -46,6 +45,8 @@
             android:layout_marginTop="6dp"
             android:background="@drawable/edit_text_border"
             android:hint="Password"
+            android:drawableLeft="@drawable/ic_baseline_visibility_24"
+            android:drawablePadding="20dp"
             android:inputType="textPassword"
             android:padding="10dp"
             android:textColor="@color/black"
@@ -74,7 +75,7 @@
             android:onClick="forget_password"
             android:text="Forgot Password?"
             android:textAllCaps="false"
-            android:textColor="#F59F0523"
+            android:textColor="#80FF0000"
             android:textSize="15sp" />
 
         <LinearLayout
@@ -115,7 +116,7 @@
             android:onClick="create_an_account"
             android:text="Create an account"
             android:textAllCaps="false"
-            android:textColor="#064AF6"
+            android:textColor="#6200EA"
             android:textSize="15sp" />
 
         <ProgressBar

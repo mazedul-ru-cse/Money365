@@ -12,7 +12,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -41,9 +44,9 @@
             android:id="@+id/reg_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_border"
             android:hint="@string/email_address"
-            android:layout_marginTop="10dp"
             android:padding="10dp"
             android:textColor="@color/black"
             android:textColorHint="#BF000000"
@@ -53,10 +56,10 @@
             android:id="@+id/reg_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_border"
             android:hint="@string/phone_number"
             android:padding="10dp"
-            android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textColorHint="#BF000000"
             android:textSize="15sp" />
@@ -75,7 +78,7 @@
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/confirm_password"
+            android:id="@+id/reg_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -94,7 +97,7 @@
             android:layout_marginTop="6dp"
             android:background="@drawable/edit_text_border"
             android:hint="@string/refer_code_optional"
-            
+
             android:padding="10dp"
             android:textColor="@color/black"
             android:textColorHint="#BF000000"
@@ -124,12 +127,13 @@
             android:textSize="15sp" />
 
         <ProgressBar
-            android:layout_marginTop="10dp"
+            android:id="@+id/registration_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:visibility="invisible"
             android:outlineAmbientShadowColor="@color/white"
-            android:outlineSpotShadowColor="#0000FF"
-            />
+            android:outlineSpotShadowColor="#0000FF" />
     </LinearLayout>
 
 </RelativeLayout>
