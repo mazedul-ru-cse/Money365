@@ -81,6 +81,20 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()) {
 
             case R.id.nav_home:
+                break;
+
+            case R.id.h_logout:
+
+               ProgressDialogM progressDialogM =  new ProgressDialogM(Dashboard.this);
+               progressDialogM.showDialog("Logout");
+
+                new StoreUserID(this).setUserIDPassword("","",false);
+                progressDialogM.hideDialog();
+
+                startActivity(new Intent(Dashboard.this , UserLogin.class));
+                finish();
+
+                break;
         }
 
         leftSide();
@@ -108,5 +122,12 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     public void withdraw(View view) {
         startActivity(new Intent(Dashboard.this, Withdraw.class));
+    }
+
+    public void notice(View view) {
+
+        StoreUserID storeUserID = new StoreUserID(this);
+
+        Toast.makeText(this, storeUserID.getUserID()+" "+storeUserID.getUserPassword(), Toast.LENGTH_SHORT).show();
     }
 }

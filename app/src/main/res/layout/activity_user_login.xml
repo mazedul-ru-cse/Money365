@@ -26,20 +26,20 @@
             android:layout_marginBottom="40dp"/>
 
         <EditText
-            android:id="@+id/loginEmail"
+            android:id="@+id/login_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_outline_email_24"
             android:drawablePadding="20dp"
             android:background="@drawable/edit_text_border"
-            android:hint="Email Address"
+            android:hint="Phone number"
             android:padding="10dp"
             android:textColor="@color/black"
             android:textColorHint="#BF000000"
             android:textSize="15sp" />
 
         <EditText
-            android:id="@+id/loginPassword"
+            android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -54,7 +54,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/login"
+            android:id="@+id/bt_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -119,12 +119,6 @@
             android:textColor="#6200EA"
             android:textSize="15sp" />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:outlineAmbientShadowColor="@color/white"
-            android:outlineSpotShadowColor="#0000FF"
-            />
     </LinearLayout>
 
 </RelativeLayout>

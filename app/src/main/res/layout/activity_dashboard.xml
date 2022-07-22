@@ -367,6 +367,7 @@
                     <androidx.cardview.widget.CardView
                         app:cardBackgroundColor="@color/white"
                         android:layout_width="0dp"
+                        android:onClick="notice"
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
