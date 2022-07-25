@@ -1,17 +1,16 @@
 package com.helloboss.money365.task;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
+import com.helloboss.money365.BreakTimer;
+import com.helloboss.money365.Dashboard;
 import com.helloboss.money365.ProgressDialogM;
 import com.helloboss.money365.R;
+import com.helloboss.money365.StoreUserID;
 import com.helloboss.money365.workshow.InterstitialAdsShow;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -29,7 +28,8 @@ public class Task extends AppCompatActivity {
 
 
     ProgressDialogM progressDialogM;
-
+    BreakTimer breakTimer;
+    StoreUserID storeUserID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,19 @@ public class Task extends AppCompatActivity {
 
         progressDialogM = new ProgressDialogM(this);
 
-        new Task1().execute();
+
+        breakTimer = new BreakTimer(this);
+        storeUserID = new StoreUserID(this);
+
+        if(breakTimer.isBreakTime(storeUserID.getBreakTime())){
+
+            breakTimer.showCounterDownTimer();
+        }
 
     }
 
     public void task1(View view) {
         new Task1().execute(1);
-
     }
     public void task2(View view) {
         new Task1().execute(2);
@@ -108,8 +114,10 @@ public class Task extends AppCompatActivity {
             super.onPostExecute(s);
             progressDialogM.hideDialog();
 
-            if(s == 1)
-                startActivity(new Intent(Task.this , InterstitialAdsShow.class));
+            if(s == 1) {
+                startActivity(new Intent(Task.this, InterstitialAdsShow.class));
+                finish();
+            }
         }
 
 
@@ -119,6 +127,4 @@ public class Task extends AppCompatActivity {
             progressDialogM.showDialog("Task loading..!");
         }
     }
-
-
 }

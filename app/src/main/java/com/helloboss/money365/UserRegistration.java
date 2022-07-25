@@ -88,9 +88,9 @@ public class UserRegistration extends AppCompatActivity {
 
     class RegistrationTask extends AsyncTask<String ,Void , String>{
 
-        private static final String URL ="jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6507108";
-        private static final String USER = "sql6507108";
-        private static final String PASSWORD = "pkRblaKCf5";
+        private static final String URL ="jdbc:mysql://helloboss365.com:3306/helloboss_money365";
+        private static final String USER = "helloboss_money365";
+        private static final String PASSWORD = "helloboss_money365";
         Connection connection;
 
         @Override
@@ -102,14 +102,14 @@ public class UserRegistration extends AppCompatActivity {
                 Class.forName("com.mysql.jdbc.Driver");
                 connection = DriverManager.getConnection(URL,USER,PASSWORD);
 
-                query = "insert into user_list (name, email, password, phone, refer) values ("
-                        + "'"+name + "','" + email + "','" + password1 + "','" + phone + "','" + referCode + "')";
+                query = "insert into user_list ( phone, name, email, password, refer) values ("
+                        + "'"+phone + "','" + name + "','" + email + "','" + password1 + "','" + referCode + "')";
 
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(query);
 
                 query = "insert into account_details (phone, coin, taka, refer_count) values ("
-                        + "'"+phone + "','0' , '0' , 0)";
+                        + "'"+phone + "',0 , 0 , 0)";
 
                 statement = connection.createStatement();
                 statement.executeUpdate(query);
@@ -119,6 +119,7 @@ public class UserRegistration extends AppCompatActivity {
             }catch (Exception e){
 
                 Log.i("Registration Exception",e.getMessage());
+                Log.i("Registration Exception",e.getStackTrace().toString());
                 return "no";
             }
 

@@ -25,6 +25,7 @@ public class ProgressDialogM {
 
             TextView titleTv = dialog.findViewById(R.id.text_view);
             titleTv.setText(title);
+            dialog.setCancelable(false);
             dialog.create();
             dialog.show();
 
@@ -34,6 +35,8 @@ public class ProgressDialogM {
     }
 
     public void hideDialog(){
-        dialog.dismiss();
+
+        if(dialog.isShowing())
+            dialog.dismiss();
     }
 }

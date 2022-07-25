@@ -11,6 +11,7 @@ public class StoreUserID {
     public static final String sPLoginStatus = "status";
     public static final String sPBreakTime = "break";
 
+
     SharedPreferences sharedPreferences;
 
     public StoreUserID(Context context) {
@@ -23,6 +24,18 @@ public class StoreUserID {
         editor.apply();
     }
 
+    public void setCurrentRewardPoint(String taskNO, int point){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(taskNO, point);
+        editor.apply();
+    }
+
+    public int getCurrentRewardPoint(String taskNO){
+
+        return sharedPreferences.getInt(taskNO,0);
+
+    }
+
     public String getBreakTime(){
         return sharedPreferences.getString(sPBreakTime,"");
     }
@@ -33,6 +46,7 @@ public class StoreUserID {
         editor.putString(sPUserID, userID);
         editor.putString(sPUserPassword, userPassword);
         editor.putBoolean(sPLoginStatus, loginStatus);
+        editor.putString(sPBreakTime, "null");
         editor.apply();
 
     }

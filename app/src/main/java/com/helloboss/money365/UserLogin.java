@@ -61,14 +61,12 @@ public class UserLogin extends AppCompatActivity {
 
         if(phone.isEmpty()){
             editPhone.setError("Phone number is required");
-            progressDialogM.hideDialog();
             return;
         }
 
 
         if(password.isEmpty()){
             editPassword.setError("Password is required");
-            progressDialogM.hideDialog();
 
             return;
         }
