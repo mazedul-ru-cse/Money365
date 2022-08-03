@@ -10,14 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
+import com.helloboss.money365.requesthandler.RequestHandler;
+
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class UserRegistration extends AppCompatActivity {
 
     EditText editName, editEmail, editPhone, editPassword1, editPasswordConfirm , editRefer;
-    String  name , email,password1,password2, phone, referCode;
+    String  name , email,password,password2, phone, refer;
 
     ProgressDialogM progressDialogM;
     @Override
@@ -42,9 +45,9 @@ public class UserRegistration extends AppCompatActivity {
         name = editName.getText().toString();
         email = editEmail.getText().toString();
         phone = editPhone.getText().toString();
-        password1 = editPassword1.getText().toString();
+        password = editPassword1.getText().toString();
         password2 = editPasswordConfirm.getText().toString();
-        referCode = editRefer.getText().toString();
+        refer = editRefer.getText().toString();
 
         if(name.isEmpty()){
             editName.setError("Name is required");
@@ -58,7 +61,7 @@ public class UserRegistration extends AppCompatActivity {
             editPhone.setError("Phone number is required");
             return;
         }
-        if(password1.isEmpty()){
+        if(password.isEmpty()){
             editPassword1.setError("Password is required");
             return;
         }
@@ -67,13 +70,13 @@ public class UserRegistration extends AppCompatActivity {
             return;
         }
 
-        if(!password1.equals(password2)){
+        if(!password.equals(password2)){
 
             editPasswordConfirm.setError("Not matched...!");
             return;
         }
-        if(referCode.isEmpty()){
-            referCode = "#";
+        if(refer.isEmpty()){
+            refer = "#";
 
         }
 
@@ -88,33 +91,27 @@ public class UserRegistration extends AppCompatActivity {
 
     class RegistrationTask extends AsyncTask<String ,Void , String>{
 
-        private static final String URL ="jdbc:mysql://helloboss365.com:3306/helloboss_money365";
-        private static final String USER = "helloboss_money365";
-        private static final String PASSWORD = "helloboss_money365";
-        Connection connection;
+        final String USER_REGISTRATION = "https://helloboss365.com/money365/registration.php";
 
         @Override
         protected String  doInBackground(String... strings) {
 
-            String query = "";
             try{
 
-                Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection(URL,USER,PASSWORD);
+                //creating request handler object
+                RequestHandler requestHandler = new RequestHandler();
 
-                query = "insert into user_list ( phone, name, email, password, refer) values ("
-                        + "'"+phone + "','" + name + "','" + email + "','" + password1 + "','" + referCode + "')";
+                //creating request parameters
+                HashMap<String, String> params = new HashMap<>();
+                params.put("phone", phone);
+                params.put("name", name);
+                params.put("email", email);
+                params.put("password", password);
+                params.put("refer", refer);
 
-                Statement statement = connection.createStatement();
-                statement.executeUpdate(query);
+                //returing the response
+                return requestHandler.sendPostRequest(USER_REGISTRATION, params);
 
-                query = "insert into account_details (phone, coin, taka, refer_count) values ("
-                        + "'"+phone + "',0 , 0 , 0)";
-
-                statement = connection.createStatement();
-                statement.executeUpdate(query);
-
-                connection.close();
 
             }catch (Exception e){
 
@@ -122,8 +119,6 @@ public class UserRegistration extends AppCompatActivity {
                 Log.i("Registration Exception",e.getStackTrace().toString());
                 return "no";
             }
-
-            return "yes";
         }
 
         @Override
@@ -131,22 +126,26 @@ public class UserRegistration extends AppCompatActivity {
 
             super.onPreExecute();
             progressDialogM.showDialog("Please wait");
-
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             progressDialogM.hideDialog();
 
-            if(s.equals("yes")) {
-                Toast.makeText(getApplicationContext(), "Account created successfully", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(UserRegistration.this, UserLogin.class));
-                finish();
-
-            }else {
-                editPhone.setError("Phone number is already used");
+            try {
+                //converting response to json object
+                JSONObject obj = new JSONObject(s);
+                //if no error in response
+                if (!obj.getBoolean("error")) {
+                    Toast.makeText(getApplicationContext(), "Account created successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(UserRegistration.this, UserLogin.class));
+                    finish();
+                }else{
+                    editPhone.setError("Phone number is already used");
+                }
+            } catch (Exception e) {
+                Toast.makeText(UserRegistration.this, "Exception: "+e, Toast.LENGTH_LONG).show();
             }
         }
     }

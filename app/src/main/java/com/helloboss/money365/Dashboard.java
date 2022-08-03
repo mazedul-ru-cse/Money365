@@ -17,13 +17,22 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.ads.AbstractAdListener;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.AudienceNetworkAds;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.google.android.material.navigation.NavigationView;
+import com.helloboss.money365.adsLoader.FBAdsLoader;
+import com.helloboss.money365.requesthandler.RequestHandler;
 import com.helloboss.money365.task.Task;
+import com.helloboss.noticeboard.NoticeBoard;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,9 +40,13 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    InterstitialAd interstitialAd;
 
     TextView tvHeaderUsername,tvHeaderUserID, tvDashUserName, tvDashTk, tvDashCoin;
     ProgressDialogM progressDialogM;
+
+    public static String pEmail, pName, pTaka, pCoin, pReferCount, pReferCode;
+    public static int pCoinUnit = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +64,6 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         //toolbar
         setSupportActionBar(toolbar);
-
 
         //Navigation menu
         navigationView.bringToFront();
@@ -103,6 +115,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()) {
 
             case R.id.nav_home:
+                startActivity(new Intent(Dashboard.this , Dashboard.class));
+                finish();
                 break;
 
             case R.id.h_logout:
@@ -135,9 +149,13 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     public void task(View view) {
 
-        startActivity(new Intent(Dashboard.this, Task.class));
-        if(new BreakTimer(this).isBreakTime(new StoreUserID(this).getBreakTime()))
+        if(new CountryWaring(this).isUSorCA()){
+            startActivity(new Intent(Dashboard.this, Task.class));
+        }
+
+        if(new BreakTimer(this).isBreakTime(new StoreUserID(this).getBreakTime())) {
             finish();
+        }
     }
 
     public void profile(View view) {
@@ -151,50 +169,32 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     public void notice(View view) {
 
-        StoreUserID storeUserID = new StoreUserID(this);
-
-        Toast.makeText(this, storeUserID.getUserID()+" "+storeUserID.getUserPassword(), Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(Dashboard.this , NoticeBoard.class));
     }
 
 
     class DashboardTask extends AsyncTask<String ,Void , String> {
 
-        private static final String URL ="jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6507108";
-        private static final String USER = "sql6507108";
-        private static final String PASSWORD = "pkRblaKCf5";
-        String name = null, coin = null, tk = null;
-        Connection connection;
+        final String DASHBOARD_URL = "https://helloboss365.com/money365/dashboard.php";
 
         @Override
         protected String doInBackground(String... strings) {
-            Statement st;
-            ResultSet resultSet;
 
             try {
 
-                Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection(URL,USER,PASSWORD);
+                RequestHandler requestHandler = new RequestHandler();
 
-                String query = "SELECT a.`name`, b.`coin`, b.`taka` " +
-                        "FROM `user_list` a , `account_details` b" +
-                        " where a.`phone`="+ UserLogin.userID+ " and b.`phone`="+UserLogin.userID;
+                //creating request parameters
+                HashMap<String, String> params = new HashMap<>();
+                params.put("phone", UserLogin.userID+"");
 
-                st = connection.createStatement();
-                resultSet = st.executeQuery(query);
-
-                if(resultSet.next()) {
-                    name = resultSet.getString("name");
-                    tk = resultSet.getString("taka");
-                    coin = resultSet.getString("coin");
-                }
-
-                connection.close();
+                //returning the response
+                return requestHandler.sendPostRequest(DASHBOARD_URL, params);
 
             }catch (Exception e){
 
                 progressDialogM.hideDialog();
                 Log.i("Profile exception",e.getMessage());
-
             }
 
             return null;
@@ -204,11 +204,36 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-            tvHeaderUsername.setText(name);
-            tvDashUserName.setText(name);
-            tvDashTk.setText(tk);
-            tvDashCoin.setText(coin);
             progressDialogM.hideDialog();
+
+            try{
+                //Converting response to JSON Object
+                JSONObject obj = new JSONObject(s);
+
+                //if no error in response
+                if (!obj.getBoolean("error")){
+
+                    pCoinUnit = obj.getInt("coin_unit");
+                    pName = obj.getString("name");
+                    pEmail = obj.getString("email");
+                    int coin = obj.getInt("coin");
+                    pCoin = obj.getString("coin");
+                    pReferCode = obj.getString("refer_code");
+                    pReferCount = obj.getString("refer_count");
+
+                    pTaka = (coin/pCoinUnit)+"";
+
+                   // Log.i("Json data",s);
+
+                    //Set retrieved text to TextViews
+                    tvHeaderUsername.setText(obj.getString("name"));
+                    tvDashUserName.setText(obj.getString("name"));
+                    tvDashTk.setText(pTaka);
+                    tvDashCoin.setText(obj.getString("coin"));
+                }
+            }catch (Exception e ){
+
+            }
         }
 
         @Override

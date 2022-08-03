@@ -395,7 +395,8 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:background="@drawable/notification_bell"
+                                android:id="@+id/notification_bell"
+                                android:background="@drawable/notification"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"/>

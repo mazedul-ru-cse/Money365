@@ -163,6 +163,7 @@
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
+                        android:onClick="recharge"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
@@ -212,6 +213,7 @@
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
                         android:layout_marginBottom="10dp"
+                        android:onClick="bkash"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="10dp"
                         app:cardElevation="8dp"
@@ -260,6 +262,7 @@
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
+                        android:onClick="rocket"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
 
@@ -310,6 +313,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
+                        android:onClick="nogot"
                         android:layout_rowWeight="1"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
@@ -355,6 +359,7 @@
                     <androidx.cardview.widget.CardView
                         app:cardBackgroundColor="@color/white"
                         android:layout_width="0dp"
+                        android:onClick="paypal"
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
@@ -404,6 +409,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
+                        android:onClick="card"
                         android:layout_rowWeight="1"
                         android:layout_marginBottom="10dp"
 

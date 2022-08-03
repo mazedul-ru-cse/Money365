@@ -5,16 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import com.helloboss.money365.requesthandler.RequestHandler;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class UserLogin extends AppCompatActivity {
 
@@ -104,51 +104,33 @@ public class UserLogin extends AppCompatActivity {
 
     class LoginTask extends AsyncTask<String ,Void , String>{
 
-        private static final String URL ="jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6507108";
-        private static final String USER = "sql6507108";
-        private static final String PASSWORD = "pkRblaKCf5";
-
         String phone = editPhone.getText().toString();
         String password = editPassword.getText().toString();
 
-        Connection connection;
 
         @Override
         protected String doInBackground(String... strings) {
-            Statement st;
-            ResultSet resultSet;
+
+            final String LOGIN_URL = "https://helloboss365.com/money365/user_login.php";
 
             try {
+                RequestHandler requestHandler = new RequestHandler();
 
-                Class.forName("com.mysql.jdbc.Driver");
-                connection = DriverManager.getConnection(URL,USER,PASSWORD);
+                //creating request parameters
+                HashMap<String, String> params = new HashMap<>();
+                params.put("phone", phone);
 
-                String query = "SELECT `password` FROM `user_list` WHERE `phone`="+phone;
-
-                st = connection.createStatement();
-                resultSet = st.executeQuery(query);
-
-                String userPassword = null;
-
-                if(resultSet.next()) {
-                    userPassword = resultSet.getString("password");
-                }
-
-                if(password.equals(userPassword)){
-                    return "yes";
-                }
-
-                connection.close();
+                //returning the response
+                return requestHandler.sendPostRequest(LOGIN_URL, params);
 
             }catch (Exception e){
 
                 progressDialogM.hideDialog();
-                Log.i("Profile exception",e.getMessage());
+               // Log.i("Profile exception",e.getMessage());
                 return "no";
 
             }
 
-            return "no";
         }
 
         @Override
@@ -157,16 +139,29 @@ public class UserLogin extends AppCompatActivity {
 
             progressDialogM.hideDialog();
 
-            if(s.equals("yes")){
-                userID = phone;
-                storeUserID.setUserIDPassword(phone,password, true);
-                startActivity(new Intent(UserLogin.this , Dashboard.class));
-                finish();
+            try{
+                //Converting response to JSON Object
+                JSONObject obj = new JSONObject(s);
+
+                //if no error in response
+                if (!obj.getBoolean("error")){
+
+                    if(obj.getString("password").equals(password)){
+                        Toast.makeText(UserLogin.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+                        userID = phone;
+                        storeUserID.setUserIDPassword(phone,password, true);
+                        startActivity(new Intent(UserLogin.this , Dashboard.class));
+                        finish();
+
+                    }else{
+                        editPhone.setError("Wrong");
+                        editPassword.setError("Wrong");
+                    }
+                }
+            } catch (Exception e ){
+                Toast.makeText(UserLogin.this, "Exception: "+e, Toast.LENGTH_SHORT).show();
             }
-            else{
-                editPhone.setError("Wrong");
-                editPassword.setError("Wrong");
-            }
+
         }
 
         @Override
