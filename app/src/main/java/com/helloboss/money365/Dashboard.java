@@ -26,6 +26,7 @@ import com.facebook.ads.InterstitialAd;
 import com.facebook.ads.InterstitialAdListener;
 import com.google.android.material.navigation.NavigationView;
 import com.helloboss.money365.adsLoader.FBAdsLoader;
+import com.helloboss.money365.leaderboard.LeaderBoard;
 import com.helloboss.money365.requesthandler.RequestHandler;
 import com.helloboss.money365.task.Task;
 import com.helloboss.noticeboard.NoticeBoard;
@@ -164,12 +165,30 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     }
 
     public void withdraw(View view) {
+
         startActivity(new Intent(Dashboard.this, Withdraw.class));
     }
 
     public void notice(View view) {
 
         startActivity(new Intent(Dashboard.this , NoticeBoard.class));
+    }
+
+    public void leader_board(View view) {
+
+        startActivity(new Intent(Dashboard.this , LeaderBoard.class));
+    }
+
+    public void user_guide(View view) {
+    }
+
+    public void history(View view) {
+    }
+
+    public void contact(View view) {
+    }
+
+    public void tips(View view) {
     }
 
 

@@ -11,6 +11,7 @@
         <entry key="..\:/Project/Money365/app/src/main/res/drawable/submit_button.xml" value="0.1565" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_dashboard.xml" value="0.16" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_interstitial_ads_show.xml" value="0.16" />
+        <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_leader_board.xml" value="0.16576086956521738" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_main.xml" value="0.14945652173913043" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_notice_board.xml" value="0.15" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/activity_profile.xml" value="0.25" />
@@ -22,7 +23,8 @@
         <entry key="..\:/Project/Money365/app/src/main/res/layout/country_warning.xml" value="0.18" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/dialog.xml" value="0.1" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/header.xml" value="0.13451086956521738" />
-        <entry key="..\:/Project/Money365/app/src/main/res/layout/notice.xml" value="0.33" />
+        <entry key="..\:/Project/Money365/app/src/main/res/layout/leader_board.xml" value="0.25" />
+        <entry key="..\:/Project/Money365/app/src/main/res/layout/notice.xml" value="0.18" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/payment_xml.xml" value="0.18" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/recharge_dialog.xml" value="0.22" />
         <entry key="..\:/Project/Money365/app/src/main/res/layout/waring_xml.xml" value="0.2" />

@@ -306,6 +306,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
+                        android:onClick="leader_board"
                         android:layout_rowWeight="1"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
@@ -343,6 +344,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
+                        android:onClick="user_guide"
                         android:layout_rowWeight="1"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
@@ -420,6 +422,7 @@
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
+                        android:onClick="history"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
                         app:cardElevation="8dp"
@@ -455,6 +458,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_columnWeight="1"
+                        android:onClick="contact"
                         android:layout_rowWeight="1"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
@@ -486,6 +490,7 @@
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         app:cardBackgroundColor="@color/white"
                         android:layout_width="0dp"
@@ -493,6 +498,7 @@
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
                         android:layout_marginBottom="10dp"
+                        android:onClick="tips"
                         app:cardElevation="8dp"
                         app:cardCornerRadius="8dp">
 
