@@ -15,10 +15,28 @@
         android:theme="@style/Theme.Money365"
         tools:targetApi="31">
         <activity
+            android:name=".resetpasword.NewPassword"
+            android:exported="false" />
+        <activity
+            android:name=".resetpasword.Verification"
+            android:exported="false" />
+        <activity
+            android:name=".resetpasword.ForgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".tips.Tips"
+            android:exported="false" />
+        <activity
+            android:name=".Contact"
+            android:exported="false" />
+        <activity
+            android:name=".userguide.UserGuide"
+            android:exported="false" />
+        <activity
             android:name=".leaderboard.LeaderBoard"
             android:exported="false" />
         <activity
-            android:name="com.helloboss.noticeboard.NoticeBoard"
+            android:name=".noticeboard.NoticeBoard"
             android:exported="false" />
         <activity
             android:name=".Withdraw"

@@ -1,7 +1,11 @@
 package com.helloboss.money365.workshow;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,6 +13,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,20 +42,16 @@ import java.util.HashMap;
 
 public class InterstitialAdsShow extends AppCompatActivity {
 
-    TextView tvTaskCounter1 ,tvTaskCounter2;
+    TextView tvTaskCounter1 ,tvTaskCounter2,coinCounter;
 
     StoreUserID storeUserID;
     SimpleDateFormat simpleDateFormat;
     int currentTaskCounter = 0;
-    BreakTimer breakTimer;
-
     AdmobAdsLoader adsLoader;
     FBAdsLoader fbAdsLoader;
     int updateCoin = 0;
 
-    String taskRewardPoint = Task.taskNo+"reward";
-
-    public static long rewardPoint = 0;
+    String taskRewardPoint = "taskRewardPoint";
     ProgressDialogM progressDialogM;
 
     @Override
@@ -63,13 +64,14 @@ public class InterstitialAdsShow extends AppCompatActivity {
 
         getSupportActionBar().hide();
         storeUserID = new StoreUserID(this);
-        breakTimer = new BreakTimer(this);
 
         tvTaskCounter1 = findViewById(R.id.task_counter1);
         tvTaskCounter2 = findViewById(R.id.task_counter2);
+        coinCounter = findViewById(R.id.coin_counter_tv);
 
         tvTaskCounter1.setText(Task.taskRange+"");
         tvTaskCounter2.setText(storeUserID.getTaskCount(Task.taskNo+"")+"");
+        coinCounter.setText("Earned point "+storeUserID.getCurrentRewardPoint(taskRewardPoint)+"");
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -88,6 +90,8 @@ public class InterstitialAdsShow extends AppCompatActivity {
     public void play(View view) {
 
         try {
+            coinCounter.setText("Earned point "+storeUserID.getCurrentRewardPoint(taskRewardPoint)+"");
+
             //get previous task counter2
             currentTaskCounter = Integer.parseInt(tvTaskCounter2.getText().toString());
 
@@ -96,26 +100,40 @@ public class InterstitialAdsShow extends AppCompatActivity {
                 tvTaskCounter2.setText("0");
                 storeUserID.setTaskCount(Task.taskNo + "", 0);
 
-                //get current time
-                simpleDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-                Date date = new Date();
+                //Current task complete action
+                storeUserID.setTaskStatus(Task.taskNo+"status", "completed");
 
-                //Reward point set to zero
-                updateCoin = Integer.parseInt(Dashboard.pCoin) + storeUserID.getCurrentRewardPoint(taskRewardPoint);
-                storeUserID.setCurrentRewardPoint(taskRewardPoint, 0);
 
-                //Update the point
-                new TaskUpdateCoin().execute();
 
-                //Set break time
-                storeUserID.setBreakTime(simpleDateFormat.format(date) + "");
-                if (breakTimer.isBreakTime(storeUserID.getBreakTime())) {
-                    Toast.makeText(this, "Total Coin "+updateCoin, Toast.LENGTH_SHORT).show();
-                    breakTimer.showCounterDownTimer();
+                if(Task.taskNo == 4) {
+
+                    storeUserID.setTaskStatus("1status", "incomplete");
+                    storeUserID.setTaskStatus("2status", "incomplete");
+                    storeUserID.setTaskStatus("3status", "incomplete");
+                    //get current time
+                    simpleDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+                    Date date = new Date();
+
+                    //Reward point set to zero
+                    updateCoin = Integer.parseInt(Dashboard.pCoin) + storeUserID.getCurrentRewardPoint(taskRewardPoint);
+                    int lastPoint = storeUserID.getCurrentRewardPoint(taskRewardPoint);
+                    storeUserID.setCurrentRewardPoint(taskRewardPoint, 0);
+
+                    //Update the point
+                    new TaskUpdateCoin().execute();
+
+                    //Set break time
+                    storeUserID.setBreakTime(simpleDateFormat.format(date) + "");
+
+                    earnedCoinMessage(lastPoint);
+
+                }else{
+                    startActivity(new Intent(InterstitialAdsShow.this, Task.class ));
+                    finish();
                 }
 
 
-            } else {
+            }else {
 
                 currentTaskCounter++;
                 tvTaskCounter2.setText(currentTaskCounter + "");
@@ -149,7 +167,7 @@ public class InterstitialAdsShow extends AppCompatActivity {
 
                     if(Task.taskAdsTypes.equals("interstitial")) {
 
-                        if (fbAdsLoader.setFBInterstitialAdsID("ca-app-pub-3940256099942544/5224354917",storeUserID, taskRewardPoint) != null) {
+                        if (fbAdsLoader.setFBInterstitialAdsID("3258418574477730_3258568021129452",storeUserID, taskRewardPoint) != null) {
                             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run(){
@@ -159,7 +177,7 @@ public class InterstitialAdsShow extends AppCompatActivity {
                             }, 3500);
                         }
                     }else{
-                        if (fbAdsLoader.setFBRewardedVideoAdsID("ca-app-pub-3940256099942544/5224354917", storeUserID, taskRewardPoint) != null) {
+                        if (fbAdsLoader.setFBRewardedVideoAdsID("3258418574477730_3258568577796063", storeUserID, taskRewardPoint) != null) {
                             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -175,7 +193,7 @@ public class InterstitialAdsShow extends AppCompatActivity {
 
                     if(Task.taskAdsTypes.equals("interstitial")) {
 
-                        if (adsLoader.setAdmobInterstitialAdsID("ca-app-pub-3940256099942544/5224354917") != null) {
+                        if (adsLoader.setAdmobInterstitialAdsID("ca-app-pub-3940256099942544/1033173712") != null) {
                             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -184,7 +202,7 @@ public class InterstitialAdsShow extends AppCompatActivity {
                             }, 3500);
                         }
                     }else{
-                        if (adsLoader.setAdmobRewardedAdID("ca-app-pub-3940256099942544/5224354917") != null) {
+                        if (adsLoader.setAdmobRewardedAdID("ca-app-pub-3940256099942544/1033173712") != null) {
                             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -201,6 +219,100 @@ public class InterstitialAdsShow extends AppCompatActivity {
         }catch (Exception e){
             e.getMessage();
         }
+    }
+
+    private void earnedCoinMessage(int point) {
+
+        Dialog dialog;
+        try {
+            dialog = new Dialog(this);
+            dialog.setContentView(R.layout.waring_xml);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+            TextView titleTv = dialog.findViewById(R.id.waring_text);
+            ImageView cross = dialog.findViewById(R.id.waring_cross);
+            ImageView imageView = dialog.findViewById(R.id.waring_image);
+            imageView.setBackgroundResource(R.drawable.congratulations);
+
+            titleTv.setText("অভিনন্দন\nআপনি "+point+" পয়েন্ট পেয়েছেন!!");
+            dialog.setCancelable(false);
+            dialog.create();
+            dialog.show();
+
+            cross.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                        showBreak();
+                    }
+                }
+            });
+
+        } catch (Exception e) {
+            e.getMessage();
+
+        }
+    }
+
+    private void showBreak() {
+
+        Dialog dialog;
+        // breakTimer.showCounterDownTimer();
+
+        try {
+            dialog = new Dialog(this);
+            dialog.setContentView(R.layout.count_down_timer);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setCancelable(true);
+
+            TextView tvTimer = dialog.findViewById(R.id.timer_count);
+            CountDownTimer countDownTimer = new CountDownTimer(300000, 1000) {
+                @Override
+                public void onTick(long l) {
+
+                    NumberFormat f = new DecimalFormat("00");
+                    long min = (l / 60000) % 60;
+                    long sec = (l / 1000) % 60;
+
+                    tvTimer.setText(f.format(min) + ":" + f.format(sec));
+
+                }
+
+                @Override
+                public void onFinish() {
+
+                    tvTimer.setText("00:00");
+                    dialog.dismiss();
+
+                }
+            };
+
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
+
+                    try {
+                        dialog.dismiss();
+                      //  dialogInterface.dismiss();
+                        startActivity(new Intent(InterstitialAdsShow.this , Dashboard.class));
+                        finish();
+
+                    } catch (Exception e) {
+                        e.getMessage();
+                    }
+                }
+            });
+
+            dialog.create();
+            dialog.show();
+            countDownTimer.start();
+
+        } catch (Exception e) {
+
+            e.getMessage();
+        }
+
     }
 
     class TaskUpdateCoin extends AsyncTask<String,Void , String> {

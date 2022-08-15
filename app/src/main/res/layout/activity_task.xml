@@ -37,6 +37,7 @@
 
             <androidx.cardview.widget.CardView
                 app:cardBackgroundColor="@color/white"
+                android:id="@+id/task_card_view1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:onClick="task1"
@@ -53,7 +54,7 @@
                     android:layout_height="wrap_content">
 
 
-                    <TextView
+                    <TextView  android:id="@+id/task1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -68,6 +69,7 @@
             </androidx.cardview.widget.CardView>
 
              <androidx.cardview.widget.CardView
+                 android:id="@+id/task_card_view2"
                  app:cardBackgroundColor="@color/white"
                  android:layout_width="0dp"
                  android:layout_height="0dp"
@@ -87,6 +89,7 @@
 
 
                      <TextView
+                         android:id="@+id/task2"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:layout_gravity="center"
@@ -101,6 +104,7 @@
              </androidx.cardview.widget.CardView>
 
              <androidx.cardview.widget.CardView
+                 android:id="@+id/task_card_view3"
                  app:cardBackgroundColor="@color/white"
                  android:layout_width="0dp"
                  android:layout_height="0dp"
@@ -119,7 +123,7 @@
                      android:layout_height="wrap_content">
 
 
-                     <TextView
+                     <TextView  android:id="@+id/task3"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:layout_gravity="center"
@@ -134,6 +138,7 @@
              </androidx.cardview.widget.CardView>
 
              <androidx.cardview.widget.CardView
+                 android:id="@+id/task_card_view4"
                  app:cardBackgroundColor="@color/white"
                  android:layout_width="0dp"
                  android:layout_height="0dp"
@@ -152,7 +157,7 @@
                      android:layout_height="wrap_content">
 
 
-                     <TextView
+                     <TextView  android:id="@+id/task4"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:layout_gravity="center"

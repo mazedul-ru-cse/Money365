@@ -1,16 +1,34 @@
 package com.helloboss.money365;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.OnSuccessListener;
+import com.google.android.play.core.tasks.Task;
 import com.helloboss.money365.requesthandler.RequestHandler;
+import com.helloboss.money365.resetpasword.ForgotPassword;
 
 import org.json.JSONObject;
 
@@ -18,10 +36,10 @@ import java.util.HashMap;
 
 public class UserLogin extends AppCompatActivity {
 
-    int backPressedCount = 0;
     EditText editPhone, editPassword;
     ProgressDialogM progressDialogM;
     TextView btnLogin;
+
 
     public static String userID;
     StoreUserID storeUserID;
@@ -40,17 +58,12 @@ public class UserLogin extends AppCompatActivity {
         storeUserID = new StoreUserID(this);
         progressDialogM = new ProgressDialogM(this);
 
-        //Check user login or not
         if(storeUserID.getLoginStatus()){
-
             //progressDialogM.showDialog("Login");
-
             userID = storeUserID.getUserID();
-
             startActivity(new Intent(UserLogin.this , Dashboard.class));
             finish();
         }
-
 
     }
 
@@ -76,7 +89,7 @@ public class UserLogin extends AppCompatActivity {
     }
 
     public void forget_password(View view) {
-
+        startActivity(new Intent(UserLogin.this , ForgotPassword.class));
 
     }
 
@@ -88,18 +101,75 @@ public class UserLogin extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        progressDialogM.hideDialog();
-        if (backPressedCount >= 1) {
-            super.onBackPressed();
-            backPressedCount = 0;
-            return;
+        AlertDialog.Builder showNotice = new AlertDialog.Builder(this);
+        showNotice.setTitle("Exit");
+        showNotice.setMessage("Do you want to exit..?");
+        showNotice.setCancelable(false);
 
-        } else {
-            backPressedCount = backPressedCount + 1;
-            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+        showNotice.setPositiveButton("Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        exitApp();
+                    }
+                });
+        showNotice.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+        showNotice.create();
+        showNotice.show();
+
+
+    }
+
+    private void exitApp() {
+        super.onBackPressed();
+    }
+
+    public void whatsapp(View view) {
+
+        try {
+            Uri uri = Uri.parse("https://chat.whatsapp.com/LV164EqgRGj6FPo7j8Zs29");
+            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        }catch (Exception e){
+
         }
+    }
 
+    public void linkedin(View view) {
 
+        try {
+            Uri uri = Uri.parse("https://linkedin.com/groups/14105858");
+            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        }catch (Exception e){
+
+        }
+    }
+
+    public void telegram(View view) {
+
+        try {
+            Uri uri = Uri.parse("https://t.me/+a5an0Ui9z88zZDY9");
+            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        }catch (Exception e){
+
+        }
+    }
+
+    public void facebook(View view) {
+
+        try {
+            Uri uri = Uri.parse("https://m.me/j/AbaezHyPgAWZ2z03/");
+            startActivity(new Intent(Intent.ACTION_VIEW, uri));
+        }catch (Exception e){
+
+        }
     }
 
     class LoginTask extends AsyncTask<String ,Void , String>{

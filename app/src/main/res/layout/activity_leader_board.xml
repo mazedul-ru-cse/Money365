@@ -21,7 +21,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_rowWeight="1"
@@ -126,6 +126,7 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="20dp"
             android:id="@+id/leader_board_list"
             android:layout_width="match_parent"
             android:paddingBottom="10dp"

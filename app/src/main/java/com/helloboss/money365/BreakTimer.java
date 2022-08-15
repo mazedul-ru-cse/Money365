@@ -1,52 +1,26 @@
 package com.helloboss.money365;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.CountDownTimer;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.helloboss.money365.task.Task;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class BreakTimer {
 
-    Context context;
     String date1;
     String date2;
     String timerDuration;
-    int hh1;
-    int mm1;
-    int ss1;
-    int ss2;
-    int mm2;
-    int hh2;
-    SimpleDateFormat simpleDateFormat;
 
-    Dialog dialog;
+    SimpleDateFormat simpleDateFormat;
     long diffTime;
 
-    public BreakTimer(Context context) {
-        this.context = context;
-    }
-
-    public boolean isBreakTime(String oldTime){
+    public String isBreakTime(String oldTime){
 
         simpleDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 
         if(oldTime.equals("null")){
-            return false;
+            return null;
         }
 
         try {
@@ -72,77 +46,76 @@ public class BreakTimer {
             Log.i("Time difference in second",diffSecond+"");
 
             if (!date1.equals(date2)) {
-                return false;
+                return null;
             }
            else if(diffSecond >= 300) {
-               return false;
+               return null;
 
             }
            else{
                timerDuration = (300 - diffSecond)+"";
-              //  Toast.makeText(context, timerDuration, Toast.LENGTH_SHORT).show();
-               return  true;
+               return  timerDuration;
             }
         }catch (Exception e){
             e.getMessage();
         }
-        return false;
+        return null;
     }
 
-    public void showCounterDownTimer() {
-
-        try {
-            dialog = new Dialog(context);
-            dialog.setContentView(R.layout.count_down_timer);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.setCancelable(true);
-
-            TextView tvTimer = dialog.findViewById(R.id.timer_count);
-
-            CountDownTimer countDownTimer =  new CountDownTimer(Long.parseLong(timerDuration)*1000 ,1000){
-
-                @Override
-                public void onTick(long l) {
-
-                    NumberFormat f = new DecimalFormat("00");
-                    long min = (l/60000)%60;
-                    long sec = (l/1000)%60;
-
-                    tvTimer.setText(f.format(min) +":"+f.format(sec));
-
-                }
-
-                @Override
-                public void onFinish() {
-
-                    tvTimer.setText("00:00");
-                    dialog.dismiss();
-
-                }
-            };
-            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-
-                    try {
-                        dialog.dismiss();
-                        context.startActivity(new Intent(context, Dashboard.class));
-                        ((Activity) context).finish();
-                    }catch (Exception e){
-                        e.getMessage();
-                    }
-                }
-            });
-
-            dialog.create();
-            dialog.show();
-            countDownTimer.start();
-
-        }catch (Exception e){
-
-            e.getMessage();
-        }
-
-    }
+//    public void showCounterDownTimer() {
+//
+//        try {
+//            dialog = new Dialog(context);
+//            dialog.setContentView(R.layout.count_down_timer);
+//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            dialog.setCancelable(true);
+//
+//            TextView tvTimer = dialog.findViewById(R.id.timer_count);
+//
+//            CountDownTimer countDownTimer =  new CountDownTimer(Long.parseLong(timerDuration)*1000 ,1000){
+//
+//                @Override
+//                public void onTick(long l) {
+//
+//                    NumberFormat f = new DecimalFormat("00");
+//                    long min = (l/60000)%60;
+//                    long sec = (l/1000)%60;
+//
+//                    tvTimer.setText(f.format(min) +":"+f.format(sec));
+//
+//                }
+//
+//                @Override
+//                public void onFinish() {
+//
+//                    tvTimer.setText("00:00");
+//                    dialog.dismiss();
+//
+//                }
+//            };
+//            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                @Override
+//                public void onCancel(DialogInterface dialogInterface) {
+//
+//                    try {
+//                        dialog.dismiss();
+//                        context.startActivity(new Intent(context, Dashboard.class));
+//                        ((Activity) context).finish();
+//                    }catch (Exception e){
+//                        e.getMessage();
+//                    }
+//                }
+//            });
+//
+//            dialog.create();
+//            dialog.show();
+//            countDownTimer.start();
+//
+//        }catch (Exception e){
+//
+//            e.getMessage();
+//        }
+//
+//    }
 
 }

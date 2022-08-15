@@ -28,7 +28,7 @@ public class FBAdsLoader {
     public void getFBInterstitialAd() {
 
         try {
-            if (interstitialAd.isAdLoaded() && interstitialAd != null) {
+            if (interstitialAd.isAdLoaded() && interstitialAd != null && !interstitialAd.isAdInvalidated()) {
                 interstitialAd.show();
                 interstitialAd = null;
             }
@@ -43,7 +43,7 @@ public class FBAdsLoader {
 //        AdSettings.setTestAdType(AdSettings.TestAdType.IMG_16_9_APP_INSTALL);
 //        AdSettings.getTestAdType();
 
-        interstitialAd = new InterstitialAd((InterstitialAdsShow)context, "3258418574477730_3258568021129452");
+        interstitialAd = new InterstitialAd((InterstitialAdsShow)context, adsID);
 
         InterstitialAdListener adListener = new InterstitialAdListener() {
 
@@ -100,7 +100,7 @@ public class FBAdsLoader {
     public void getFBRewardedVideoAd() {
 
         try {
-            if (rewardedVideoAd != null && rewardedVideoAd.isAdLoaded()) {
+            if (rewardedVideoAd != null && rewardedVideoAd.isAdLoaded() && !rewardedVideoAd.isAdInvalidated()) {
                 rewardedVideoAd.show();
                 rewardedVideoAd = null;
             }
@@ -115,7 +115,7 @@ public class FBAdsLoader {
 //        AdSettings.setTestAdType(AdSettings.TestAdType.IMG_16_9_APP_INSTALL);
 //        AdSettings.getTestAdType();
 
-        rewardedVideoAd = new RewardedVideoAd((InterstitialAdsShow)context,"3258418574477730_3258568327796088");
+        rewardedVideoAd = new RewardedVideoAd((InterstitialAdsShow)context,adsID);
         RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
             @Override
             public void onError(Ad ad, AdError error) {

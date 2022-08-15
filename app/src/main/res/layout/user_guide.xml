@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ug_click"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="5dp"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:layout_marginBottom="10dp"
+        android:layout_height="70dp">
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ug_icon"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/notification1"
+                android:layout_width="50dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="50dp"/>
+
+            <TextView
+                android:id="@+id/ug_title"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginLeft="5dp"
+                android:text="kivabe kaj korbo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

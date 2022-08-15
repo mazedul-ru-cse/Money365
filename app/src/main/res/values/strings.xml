@@ -36,5 +36,26 @@
     <string name="refer_note">আপনার বন্ধুদেরকে রেফার করুন। প্রতি রেফারের জন্য পাবেন ৫ টাকা করে।</string>
     <string name="withdraw_note">সঠিক নিয়ম মেনে কাজ করুন আর টাকা তুলুন নিশ্চিন্তে !!!</string>
     <string name="country_warning">Task is only available in US or Canada server</string>
+    <string name="free_support_24_7">Free Support (10am - 9pm)</string>
+    <string name="telegram"><a href="https://t.me/+a5an0Ui9z88zZDY9">আমাদের সাথে Telegram - এ যুক্ত হন।</a></string>
+    <string name="mail"><a href="mailto:mazed.helloboss@gmail.com">আমাদেরকে mail করুন।</a></string>
+    <string name="whatsapp"><a href="https://chat.whatsapp.com/LV164EqgRGj6FPo7j8Zs29">আমাদের সাথে Whatsapp - এ যুক্ত হন।</a></string>
+    <string name="facebook"><a href="https://m.me/j/AbaezHyPgAWZ2z03/">আমাদের সাথে Facebook - এ যুক্ত হন।</a></string>
+    <string name="create_an_account">Create an account</string>
+    <string name="login">Login</string>
+    <string name="we_will_send_you_an_otp_on_you">We will send you an OTP to your email.</string>
+    <string name="you_will_get_an_otp_via_email">You will get an OTP via email.</string>
+    <string name="password_must_be_at_least_6_character">Password must be at least 6 character.</string>
+
+    //admob
+    <string name="admob_ads_id">ca-app-pub-5769314088355366~5608949434</string>
+    <string name="admob_ins_ads1">ca-app-pub-5769314088355366/1000185238</string>
+    <string name="admob_red_ads1">ca-app-pub-5769314088355366/5677796848</string>
+
+    <string name="testAds">ca-app-pub-3940256099942544/1033173712</string>
+
+    //FB ads
+    <string name="fb_ins_ads1">3258418574477730_3258568021129452</string>
+    <string name="fb_red_ads1">3258418574477730_3258568577796063</string>
 
 </resources>

@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Withdraw extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class Withdraw extends AppCompatActivity {
 
     public void recharge(View view) {
 
-        new RechargeDialog(this).showRechargeDialog(100);
+        new RechargeDialog(this).showRechargeDialog(50);
     }
 
     public void bkash(View view) {
@@ -48,16 +49,10 @@ public class Withdraw extends AppCompatActivity {
     }
 
     public void paypal(View view) {
-        dialog.setTitle("Coming soon");
-        dialog.setCancelable(true);
-        dialog.create();
-        dialog.show();
+        Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
     }
 
     public void card(View view) {
-        dialog.setTitle("Coming soon");
-        dialog.setCancelable(true);
-        dialog.create();
-        dialog.show();
+        Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
     }
 }

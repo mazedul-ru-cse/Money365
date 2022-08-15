@@ -1,26 +1,32 @@
 package com.helloboss.money365.task;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+
 import com.helloboss.money365.BreakTimer;
 import com.helloboss.money365.Dashboard;
 import com.helloboss.money365.ProgressDialogM;
 import com.helloboss.money365.R;
 import com.helloboss.money365.StoreUserID;
-import com.helloboss.money365.UserLogin;
 import com.helloboss.money365.requesthandler.RequestHandler;
 import com.helloboss.money365.workshow.InterstitialAdsShow;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.HashMap;
 
 public class Task extends AppCompatActivity {
@@ -30,9 +36,8 @@ public class Task extends AppCompatActivity {
     public static String taskAds = "fb";
     public static String taskAdsTypes = "interstitial";
 
-
+    Dialog dialog;
     ProgressDialogM progressDialogM;
-    BreakTimer breakTimer;
     StoreUserID storeUserID;
 
     @Override
@@ -43,16 +48,39 @@ public class Task extends AppCompatActivity {
         getSupportActionBar().hide();
 
         progressDialogM = new ProgressDialogM(this);
-
-
-        breakTimer = new BreakTimer(this);
         storeUserID = new StoreUserID(this);
 
-        if(breakTimer.isBreakTime(storeUserID.getBreakTime())){
+        taskStatus();
 
-            breakTimer.showCounterDownTimer();
+    }
+
+    private void taskStatus() {
+
+        CardView cardView1 = findViewById(R.id.task_card_view1);
+        CardView cardView2 = findViewById(R.id.task_card_view2);
+        CardView cardView3 = findViewById(R.id.task_card_view3);
+
+        TextView textView1 = findViewById(R.id.task1);
+        TextView textView2 = findViewById(R.id.task2);
+        TextView textView3 = findViewById(R.id.task3);
+
+        if(storeUserID.getTaskStatus("1status").equals("completed")){
+            cardView1.setCardBackgroundColor(Color.GRAY);
+            cardView1.setClickable(false);
+            textView1.setText("1. Task completed");
         }
 
+        if(storeUserID.getTaskStatus("2status").equals("completed")){
+            cardView2.setCardBackgroundColor(Color.GRAY);
+            cardView2.setClickable(false);
+            textView2.setText("2. Task completed");
+        }
+
+        if(storeUserID.getTaskStatus("3status").equals("completed")){
+            cardView3.setCardBackgroundColor(Color.GRAY);
+            cardView3.setClickable(false);
+            textView3.setText("3. Task completed");
+        }
     }
 
     public void task1(View view) {
@@ -75,9 +103,7 @@ public class Task extends AppCompatActivity {
         @Override
         protected String doInBackground(String... task) {
 
-
             try {
-
 
                 RequestHandler requestHandler = new RequestHandler();
 
@@ -105,7 +131,7 @@ public class Task extends AppCompatActivity {
             progressDialogM.hideDialog();
 
             try {
-                Log.i("Json",s);
+               // Log.i("Json",s);
                 JSONObject obj = new JSONObject(s);
                 if(!obj.getBoolean("error")) {
 

@@ -30,6 +30,18 @@ public class StoreUserID {
         editor.apply();
     }
 
+
+    public void setTaskStatus(String taskStatus,String action){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(taskStatus, action);
+        editor.apply();
+    }
+    public String getTaskStatus(String taskStatus){
+
+        return sharedPreferences.getString(taskStatus,"");
+
+    }
+
     public int getCurrentRewardPoint(String taskNO){
 
         return sharedPreferences.getInt(taskNO,0);

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,15 +25,15 @@ public class CountryWaring {
     Context context;
     Dialog dialog;
     ProgressDialogM progressDialogM;
-    boolean isTrue = false;
+
     public CountryWaring(Context context) {
         this.context = context;
         dialog = new Dialog(context);
         progressDialogM = new ProgressDialogM(context);
     }
-    public boolean isUSorCA(){
+    public void isUSorCA(){
 
-        final String country = "https://helloboss365.com/money365/country.php";
+        final String country = "https://www.helloboss365.com/money365/country.php";
 
         class CountryName extends AsyncTask<String, Void, String>{
 
@@ -65,14 +66,14 @@ public class CountryWaring {
                 try {
                     obj = new JSONObject(s);
 
-
                     //if no error in response
                     if (!obj.getBoolean("error")) {
 
                         //  Toast.makeText(context, obj.getString("country") + "\n" + obj.getString("region"), Toast.LENGTH_SHORT).show();
                         if (obj.getString("country").equals("US") || obj.getString("country").equals("CA")) {
-                          // yes is US or CA
-                           isTrue = true;
+                       //  Log.i("Country",obj.getString("country") );
+                            context.startActivity(new Intent((Dashboard)context, Task.class));
+
                         }else{
 
                             dialog.setContentView(R.layout.country_warning);
@@ -115,6 +116,5 @@ public class CountryWaring {
 
        new CountryName().execute();
 
-        return isTrue;
     }
 }

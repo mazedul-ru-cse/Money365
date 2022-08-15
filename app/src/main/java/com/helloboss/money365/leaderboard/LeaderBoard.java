@@ -11,8 +11,6 @@ import android.util.Log;
 import com.helloboss.money365.ProgressDialogM;
 import com.helloboss.money365.R;
 import com.helloboss.money365.requesthandler.RequestHandler;
-import com.helloboss.noticeboard.NoticeAdapter;
-import com.helloboss.noticeboard.NoticeModel;
 
 import org.json.JSONObject;
 
@@ -51,101 +49,76 @@ public class LeaderBoard extends AppCompatActivity {
         leaderBoardAdapter = new LeaderBoardAdapter(this, leaderBoardModelArrayList);
         leaderBoardView.setAdapter(leaderBoardAdapter);
 
+        class LeaderBoardTask extends AsyncTask<String ,Void , String> {
 
-        LeaderBoardModel leaderBoardModel = new LeaderBoardModel();
-        //Data
-        leaderBoardModel.setRank("1");
-        leaderBoardModel.setName("M A Mazedul Islam");
-        leaderBoardModel.setAmount("500");
-        //set adapter
-        leaderBoardModelArrayList.add(leaderBoardModel);
+            final String LEADERBOARD_URL = "https://helloboss365.com/money365/leader_board.php";
 
-        LeaderBoardModel leaderBoardModel1 = new LeaderBoardModel();
-        //Data
-        leaderBoardModel1.setRank("2");
-        leaderBoardModel1.setName("Helale");
-        leaderBoardModel1.setAmount("100");
-        //set adapter
-        leaderBoardModelArrayList.add(leaderBoardModel1);
+            @Override
+            protected String doInBackground(String... strings) {
+                try {
 
-        LeaderBoardModel leaderBoardModel2 = new LeaderBoardModel();
-        //Data
-        leaderBoardModel2.setRank("10");
-        leaderBoardModel2.setName("Rana Islam");
-        leaderBoardModel2.setAmount("1500");
-        //set adapter
-        leaderBoardModelArrayList.add(leaderBoardModel2);
+                    RequestHandler requestHandler = new RequestHandler();
 
-        leaderBoardAdapter.notifyDataSetChanged();
+                    //creating request parameters
+                    HashMap<String, String> params = new HashMap<>();
+                    params.put("phone","");
 
-//        class LeaderBoardTask extends AsyncTask<String ,Void , String> {
-//
-//            final String LEADERBOARD_URL = "https://helloboss365.com/money365/leader_board.php";
-//
-//            @Override
-//            protected String doInBackground(String... strings) {
-//                try {
-//
-//                    RequestHandler requestHandler = new RequestHandler();
-//
-//                    //creating request parameters
-//                    HashMap<String, String> params = new HashMap<>();
-//                    params.put("phone","");
-//
-//                    //returning the response
-//                    return requestHandler.sendPostRequest(LEADERBOARD_URL, params);
-//
-//                }catch (Exception e){
-//
-//                    progressDialogM.hideDialog();
-//                    Log.i("Leader Board exception",e.getMessage());
-//                }
-//
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(String s) {
-//                super.onPostExecute(s);
-//
-//                progressDialogM.hideDialog();
-//
-//                try{
-//                    //Converting response to JSON Object
-//                    JSONObject obj = new JSONObject(s);
-//                    String row = "";
-//                    //if no error in response
-//                    if (!obj.getBoolean("error")){
-//
-//                        for(int i = 0 ; i < obj.length() - 1 ; i++){
-//
-//                            //Get each json row
-//                            row = obj.getString(""+i);
-//
-//                            JSONObject data = new JSONObject(row);
-//                            //set notice to recycler view
-//                            LeaderBoardModel leaderBoardModel = new LeaderBoardModel();
-//                            //Data
-//                            leaderBoardModel.setRank(data.getString("rank"));
-//                            leaderBoardModel.setName(data.getString("name"));
-//                            leaderBoardModel.setAmount(data.getString("amount"));
-//                            //set adapter
-//                            leaderBoardModelArrayList.add(leaderBoardModel);
-//                        }
-//                        leaderBoardAdapter.notifyDataSetChanged();
-//                    }
-//                }catch (Exception e ){
-//
-//                }
-//            }
-//
-//            @Override
-//            protected void onPreExecute() {
-//                super.onPreExecute();
-//                progressDialogM.showDialog("Please wait");
-//            }
-//        }
-//        new LeaderBoardTask().execute();
+                    //returning the response
+                    return requestHandler.sendPostRequest(LEADERBOARD_URL, params);
+
+                }catch (Exception e){
+
+                    progressDialogM.hideDialog();
+                    Log.i("Leader Board exception",e.getMessage());
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+
+                progressDialogM.hideDialog();
+
+                try{
+                    //Converting response to JSON Object
+                    JSONObject obj = new JSONObject(s);
+                    String row = "";
+                    //if no error in response
+                    if (!obj.getBoolean("error")){
+
+                        for(int i = 0 ; i < obj.length() - 1 ; i++){
+
+                            //Get each json row
+                            row = obj.getString(""+i);
+                            Log.i((i+1)+"",row);
+
+                            JSONObject data = new JSONObject(row);
+                            //set notice to recycler view
+                            LeaderBoardModel leaderBoardModel = new LeaderBoardModel();
+                            //Data
+                            leaderBoardModel.setRank((i+1)+"");
+                            leaderBoardModel.setName(data.getString("name"));
+                            leaderBoardModel.setAmount(data.getString("amount"));
+                            //set adapter
+                            leaderBoardModelArrayList.add(leaderBoardModel);
+                        }
+                        leaderBoardAdapter.notifyDataSetChanged();
+                    }
+                }catch (Exception e ){
+                    e.getMessage();
+
+                }
+            }
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialogM.showDialog("Please wait");
+            }
+        }
+        new LeaderBoardTask().execute();
 
     }
 }

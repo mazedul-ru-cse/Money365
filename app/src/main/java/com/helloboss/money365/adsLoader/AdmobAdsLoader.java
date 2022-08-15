@@ -94,7 +94,7 @@ public class AdmobAdsLoader {
     public RewardedAd setAdmobRewardedAdID(String adsID) {
 
         AdRequest adRequest = new AdRequest.Builder().build();
-        RewardedAd.load(context, "ca-app-pub-3940256099942544/5224354917",
+        RewardedAd.load(context, adsID,
                 adRequest, new RewardedAdLoadCallback() {
                     @Override
                     public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
