@@ -2,36 +2,50 @@ package com.helloboss.money365.workshow;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.ads.AudienceNetworkAds;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.helloboss.money365.BreakTimer;
 import com.helloboss.money365.Dashboard;
 import com.helloboss.money365.ProgressDialogM;
 import com.helloboss.money365.R;
 import com.helloboss.money365.StoreUserID;
 import com.helloboss.money365.UserLogin;
-import com.helloboss.money365.adsLoader.AdmobAdsLoader;
+import com.helloboss.money365.adsLoader.UnityAdsLoader;
 import com.helloboss.money365.adsLoader.FBAdsLoader;
 import com.helloboss.money365.requesthandler.RequestHandler;
 import com.helloboss.money365.task.Task;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.unity3d.ads.IUnityAdsInitializationListener;
+import com.unity3d.ads.UnityAds;
+import com.unity3d.services.banners.IUnityBannerListener;
+import com.unity3d.services.banners.UnityBanners;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
@@ -47,12 +61,17 @@ public class InterstitialAdsShow extends AppCompatActivity {
     StoreUserID storeUserID;
     SimpleDateFormat simpleDateFormat;
     int currentTaskCounter = 0;
-    AdmobAdsLoader adsLoader;
+    UnityAdsLoader unityAdsLoader;
     FBAdsLoader fbAdsLoader;
     int updateCoin = 0;
-
+    int questionCounter = 0;
     String taskRewardPoint = "taskRewardPoint";
     ProgressDialogM progressDialogM;
+
+    CheckBox optionA, optionB;
+    TextView question;
+    Questions questions;
+    TextView btnPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +87,11 @@ public class InterstitialAdsShow extends AppCompatActivity {
         tvTaskCounter1 = findViewById(R.id.task_counter1);
         tvTaskCounter2 = findViewById(R.id.task_counter2);
         coinCounter = findViewById(R.id.coin_counter_tv);
+        btnPlay = findViewById(R.id.get_question);
+
+        optionA = findViewById(R.id.option_a);
+        optionB = findViewById(R.id.option_b);
+        question = findViewById(R.id.question);
 
         tvTaskCounter1.setText(Task.taskRange+"");
         tvTaskCounter2.setText(storeUserID.getTaskCount(Task.taskNo+"")+"");
@@ -79,17 +103,63 @@ public class InterstitialAdsShow extends AppCompatActivity {
             }
         });
 
+
+        UnityAds.initialize(getApplicationContext(),getString(R.string.unity_game_id));
+
+
         //custom ads loader
-        adsLoader = new AdmobAdsLoader(this);
+        unityAdsLoader = new UnityAdsLoader(InterstitialAdsShow.this, btnPlay);
         fbAdsLoader = new FBAdsLoader(this);
+        questions = new Questions();
 
+        optionA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(optionB.isChecked())
+                    optionB.setChecked(false);
+            }
+        });
 
+        optionB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(optionA.isChecked())
+                    optionA.setChecked(false);
+            }
+        });
+
+        StartAppAd.showAd(this);
 
     }
 
     public void play(View view) {
 
+        //StartAppAd.showAd(this);
+
         try {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+                Network network = connectivityManager.getActiveNetwork();
+                NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(network);
+                boolean vpnConnection = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN);
+
+                if(!vpnConnection){
+                    startActivity(new Intent(InterstitialAdsShow.this, Dashboard.class ));
+                    finish();
+                    return;
+                }
+            }
+
+            // set questions
+            questionCounter++;
+            if(questionCounter > 11){
+                questionCounter = 1;
+            }
+            questions.setQuestion(questionCounter);
+
+
             coinCounter.setText("Earned point "+storeUserID.getCurrentRewardPoint(taskRewardPoint)+"");
 
             //get previous task counter2
@@ -110,22 +180,13 @@ public class InterstitialAdsShow extends AppCompatActivity {
                     storeUserID.setTaskStatus("1status", "incomplete");
                     storeUserID.setTaskStatus("2status", "incomplete");
                     storeUserID.setTaskStatus("3status", "incomplete");
-                    //get current time
-                    simpleDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-                    Date date = new Date();
 
                     //Reward point set to zero
                     updateCoin = Integer.parseInt(Dashboard.pCoin) + storeUserID.getCurrentRewardPoint(taskRewardPoint);
-                    int lastPoint = storeUserID.getCurrentRewardPoint(taskRewardPoint);
-                    storeUserID.setCurrentRewardPoint(taskRewardPoint, 0);
 
                     //Update the point
                     new TaskUpdateCoin().execute();
 
-                    //Set break time
-                    storeUserID.setBreakTime(simpleDateFormat.format(date) + "");
-
-                    earnedCoinMessage(lastPoint);
 
                 }else{
                     startActivity(new Intent(InterstitialAdsShow.this, Task.class ));
@@ -139,7 +200,7 @@ public class InterstitialAdsShow extends AppCompatActivity {
                 tvTaskCounter2.setText(currentTaskCounter + "");
                 view.setEnabled(false);
 
-                new CountDownTimer(3000, 1000) {
+                new CountDownTimer(5000, 1000) {
                     @Override
                     public void onTick(long l) {
 
@@ -167,7 +228,7 @@ public class InterstitialAdsShow extends AppCompatActivity {
 
                     if(Task.taskAdsTypes.equals("interstitial")) {
 
-                        if (fbAdsLoader.setFBInterstitialAdsID("3258418574477730_3258568021129452",storeUserID, taskRewardPoint) != null) {
+                        if (fbAdsLoader.setFBInterstitialAdsID(Task.placementId,storeUserID, taskRewardPoint) != null) {
                             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run(){
@@ -177,7 +238,7 @@ public class InterstitialAdsShow extends AppCompatActivity {
                             }, 3500);
                         }
                     }else{
-                        if (fbAdsLoader.setFBRewardedVideoAdsID("3258418574477730_3258568577796063", storeUserID, taskRewardPoint) != null) {
+                        if (fbAdsLoader.setFBRewardedVideoAdsID(Task.placementId, storeUserID, taskRewardPoint) != null) {
                             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -193,22 +254,23 @@ public class InterstitialAdsShow extends AppCompatActivity {
 
                     if(Task.taskAdsTypes.equals("interstitial")) {
 
-                        if (adsLoader.setAdmobInterstitialAdsID("ca-app-pub-3940256099942544/1033173712") != null) {
+                        if (unityAdsLoader.setInterstitialAds(Task.placementId, storeUserID, taskRewardPoint)){
                             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    adsLoader.showAdmobInterstitialAdsID(storeUserID, taskRewardPoint);
+                                    unityAdsLoader.showInAds(storeUserID, taskRewardPoint);
                                 }
-                            }, 3500);
+                            }, 3000);
                         }
-                    }else{
-                        if (adsLoader.setAdmobRewardedAdID("ca-app-pub-3940256099942544/1033173712") != null) {
+
+                    }else {
+                        if (unityAdsLoader.setRewardAds(Task.placementId, storeUserID, taskRewardPoint)) {
                             new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    adsLoader.showAdmobRewardedAdsID(storeUserID, taskRewardPoint);
+                                    unityAdsLoader.showRewardAds(storeUserID, taskRewardPoint);
                                 }
-                            }, 3500);
+                            }, 3000);
                         }
 
                     }
@@ -267,7 +329,7 @@ public class InterstitialAdsShow extends AppCompatActivity {
             dialog.setCancelable(true);
 
             TextView tvTimer = dialog.findViewById(R.id.timer_count);
-            CountDownTimer countDownTimer = new CountDownTimer(300000, 1000) {
+            CountDownTimer countDownTimer = new CountDownTimer(Dashboard.breakTime*60*1000, 1000) {
                 @Override
                 public void onTick(long l) {
 
@@ -346,9 +408,30 @@ public class InterstitialAdsShow extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-
             super.onPostExecute(s);
+
             progressDialogM.hideDialog();
+
+            try {
+                JSONObject obj = new JSONObject(s);
+
+                //get current time
+                simpleDateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+                Date date = new Date();
+                //Set break time
+                storeUserID.setBreakTime(simpleDateFormat.format(date) + "");
+
+                int lastPoint = storeUserID.getCurrentRewardPoint(taskRewardPoint);
+
+                if(!obj.getBoolean("error")){
+                    storeUserID.setCurrentRewardPoint(taskRewardPoint, 0);
+                }
+                earnedCoinMessage(lastPoint);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
 
 
@@ -359,4 +442,87 @@ public class InterstitialAdsShow extends AppCompatActivity {
         }
     }
 
+    private class Questions {
+
+        public void setQuestion(int index){
+
+            switch (index){
+
+                case 1 :
+                    question.setText(getString(R.string.q1));
+                    optionA.setText(getString(R.string.q1a));
+                    optionB.setText(getString(R.string.q1b));
+                    break;
+
+                case 2 :
+                    question.setText(getString(R.string.q2));
+                    optionA.setText(getString(R.string.q2a));
+                    optionB.setText(getString(R.string.q2b));
+                    break;
+
+                case 3 :
+                    question.setText(getString(R.string.q3));
+                    optionA.setText(getString(R.string.q3a));
+                    optionB.setText(getString(R.string.q3b));
+                    break;
+
+                case 4 :
+                    question.setText(getString(R.string.q4));
+                    optionA.setText(getString(R.string.q4a));
+                    optionB.setText(getString(R.string.q4b));
+                    break;
+
+                case 5 :
+                    question.setText(getString(R.string.q5));
+                    optionA.setText(getString(R.string.q5a));
+                    optionB.setText(getString(R.string.q5b));
+                    break;
+
+                case 6 :
+                    question.setText(getString(R.string.q6));
+                    optionA.setText(getString(R.string.q6a));
+                    optionB.setText(getString(R.string.q6b));
+                    break;
+
+                case 7 :
+                    question.setText(getString(R.string.q7));
+                    optionA.setText(getString(R.string.q7a));
+                    optionB.setText(getString(R.string.q7b));
+                    break;
+
+                case 9 :
+                    question.setText(getString(R.string.q9));
+                    optionA.setText(getString(R.string.q9a));
+                    optionB.setText(getString(R.string.q9b));
+                    break;
+
+                case 10 :
+                    question.setText(getString(R.string.q10));
+                    optionA.setText(getString(R.string.q10a));
+                    optionB.setText(getString(R.string.q10b));
+                    break;
+
+                case 11 :
+                    question.setText(getString(R.string.q11));
+                    optionA.setText(getString(R.string.q11a));
+                    optionB.setText(getString(R.string.q11b));
+                    break;
+
+                default:
+                    question.setText(getString(R.string.q8));
+                    optionA.setText(getString(R.string.q8a));
+                    optionB.setText(getString(R.string.q8b));
+                    break;
+
+            }
+        }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(InterstitialAdsShow.this, Task.class));
+        finish();
+    }
 }

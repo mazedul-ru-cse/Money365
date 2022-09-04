@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.helloboss.money365.requesthandler.RequestHandler;
+import com.startapp.sdk.adsbase.StartAppAd;
 
 import org.json.JSONObject;
 
@@ -43,6 +44,9 @@ public class PaymentDialog  {
         TextView pNumber, pCancel, pSubmit,pMethod;
 
         try {
+
+            StartAppAd.showAd(context);
+
             dialog = new Dialog(context);
             dialog.setContentView(R.layout.payment_xml);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

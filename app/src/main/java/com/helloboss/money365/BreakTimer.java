@@ -48,12 +48,12 @@ public class BreakTimer {
             if (!date1.equals(date2)) {
                 return null;
             }
-           else if(diffSecond >= 300) {
+           else if(diffSecond >= Dashboard.breakTime*60) {
                return null;
 
             }
            else{
-               timerDuration = (300 - diffSecond)+"";
+               timerDuration = (Dashboard.breakTime*60- diffSecond)+"";
                return  timerDuration;
             }
         }catch (Exception e){

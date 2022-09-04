@@ -15,164 +15,173 @@
         android:background="@color/button_color"
         android:gravity="center"
         android:padding="10dp"
-        android:text="@string/daily_task"
+        android:text="Video Task"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 
 
-
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginTop="65dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginTop="65dp"
+        android:orientation="vertical">
 
-         <GridLayout
-             android:layout_width="match_parent"
-             android:columnCount="1"
-             android:rowCount="4"
-             android:layout_height="350dp"
-             android:padding="14dp">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:columnCount="1"
+            android:padding="14dp"
+            android:rowCount="4">
 
             <androidx.cardview.widget.CardView
-                app:cardBackgroundColor="@color/white"
                 android:id="@+id/task_card_view1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:onClick="task1"
-                android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                app:cardElevation="8dp"
-                app:cardCornerRadius="8dp">
+                android:layout_columnWeight="1"
+                android:onClick="task1"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
                 <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
 
 
-                    <TextView  android:id="@+id/task1"
+                    <TextView
+                        android:id="@+id/task1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="1. Task Incomplete"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:padding="10dp"
-                        android:textStyle="bold"
-                        android:text="1. Task Incomplete"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
-             <androidx.cardview.widget.CardView
-                 android:id="@+id/task_card_view2"
-                 app:cardBackgroundColor="@color/white"
-                 android:layout_width="0dp"
-                 android:layout_height="0dp"
-                 android:layout_marginTop="10dp"
-                 android:layout_columnWeight="1"
-                 android:layout_rowWeight="1"
-                 android:onClick="task2"
-                 app:cardElevation="8dp"
-                 app:cardCornerRadius="8dp">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/task_card_view2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="10dp"
+                android:onClick="task2"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
-                 <LinearLayout
-                     android:layout_gravity="center"
-                     android:layout_margin="10dp"
-                     android:orientation="vertical"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content">
-
-
-                     <TextView
-                         android:id="@+id/task2"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_gravity="center"
-                         android:textColor="@color/black"
-                         android:textSize="18sp"
-                         android:padding="10dp"
-                         android:textStyle="bold"
-                         android:text="2. Task Incomplete"/>
-
-                 </LinearLayout>
-
-             </androidx.cardview.widget.CardView>
-
-             <androidx.cardview.widget.CardView
-                 android:id="@+id/task_card_view3"
-                 app:cardBackgroundColor="@color/white"
-                 android:layout_width="0dp"
-                 android:layout_height="0dp"
-                 android:layout_marginTop="10dp"
-                 android:layout_columnWeight="1"
-                 android:layout_rowWeight="1"
-                 android:onClick="task3"
-                 app:cardElevation="8dp"
-                 app:cardCornerRadius="8dp">
-
-                 <LinearLayout
-                     android:layout_gravity="center"
-                     android:layout_margin="10dp"
-                     android:orientation="vertical"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
 
-                     <TextView  android:id="@+id/task3"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_gravity="center"
-                         android:textColor="@color/black"
-                         android:textSize="18sp"
-                         android:padding="10dp"
-                         android:textStyle="bold"
-                         android:text="3. Task Incomplete"/>
+                    <TextView
+                        android:id="@+id/task2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="2. Task Incomplete"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                 </LinearLayout>
+                </LinearLayout>
 
-             </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-             <androidx.cardview.widget.CardView
-                 android:id="@+id/task_card_view4"
-                 app:cardBackgroundColor="@color/white"
-                 android:layout_width="0dp"
-                 android:layout_height="0dp"
-                 android:layout_columnWeight="1"
-                 android:layout_rowWeight="1"
-                 android:layout_marginTop="10dp"
-                 app:cardElevation="8dp"
-                 android:onClick="task4"
-                 app:cardCornerRadius="8dp">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/task_card_view3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="10dp"
+                android:onClick="task3"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
 
-                 <LinearLayout
-                     android:layout_gravity="center"
-                     android:layout_margin="10dp"
-                     android:orientation="vertical"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
 
-                     <TextView  android:id="@+id/task4"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_gravity="center"
-                         android:textColor="@color/black"
-                         android:textSize="18sp"
-                         android:padding="10dp"
-                         android:textStyle="bold"
-                         android:text="4. Task Incomplete"/>
+                    <TextView
+                        android:id="@+id/task3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="3. Task Incomplete"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-                 </LinearLayout>
+                </LinearLayout>
 
-             </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-         </GridLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/task_card_view4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="10dp"
+                android:onClick="task4"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/task4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="4. Task Incomplete"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+        <com.startapp.sdk.ads.banner.Banner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
+
 
 </RelativeLayout>

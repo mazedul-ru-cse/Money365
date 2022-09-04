@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.helloboss.money365.R;
 import com.helloboss.money365.noticeboard.NoticeModel;
+import com.startapp.sdk.adsbase.StartAppAd;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,7 @@ public class UserGuideAdapter extends RecyclerView.Adapter<UserGuideAdapter.MyVi
             @Override
             public void onClick(View view) {
                 try {
+                    StartAppAd.showAd(context);
                     Uri uri = Uri.parse(userGuideModel.getLink());
                     context.startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 }catch (Exception e){

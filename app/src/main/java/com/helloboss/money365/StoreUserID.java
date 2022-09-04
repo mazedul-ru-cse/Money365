@@ -89,4 +89,25 @@ public class StoreUserID {
     public Boolean getLoginStatus() {
         return sharedPreferences.getBoolean(sPLoginStatus,false);
     }
+
+
+    public int getSpinCount(String spinCount) {
+        return sharedPreferences.getInt(spinCount,0);
+    }
+
+    public int getCurrentSpinRewardPoint(String spinRewardPoint) {
+         return sharedPreferences.getInt(spinRewardPoint,0);
+    }
+
+    public void setSpinCount(String spinCount, int spinClickCounter) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(spinCount, spinClickCounter);
+        editor.apply();
+    }
+
+    public void setCurrentSpinRewardPoint(String spinRewardPoint, int point) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(spinRewardPoint, point);
+        editor.apply();
+    }
 }

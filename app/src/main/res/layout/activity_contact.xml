@@ -24,7 +24,7 @@
         android:layout_marginRight="10dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <GridLayout
             android:columnCount="1"
@@ -179,6 +179,11 @@
             </androidx.cardview.widget.CardView>
 
         </GridLayout>
+
+        <com.startapp.sdk.ads.banner.Banner
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

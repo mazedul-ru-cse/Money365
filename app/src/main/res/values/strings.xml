@@ -52,10 +52,67 @@
     <string name="admob_ins_ads1">ca-app-pub-5769314088355366/1000185238</string>
     <string name="admob_red_ads1">ca-app-pub-5769314088355366/5677796848</string>
 
+    //admob banner ads
+    <string name="admob_banner1">ca-app-pub-5769314088355366/9461129180</string>
+    <string name="admob_banner2">ca-app-pub-5769314088355366/3585151827</string>
+    <string name="admob_banner3">ca-app-pub-5769314088355366/8503819478</string>
+
     <string name="testAds">ca-app-pub-3940256099942544/1033173712</string>
 
     //FB ads
     <string name="fb_ins_ads1">3258418574477730_3258568021129452</string>
     <string name="fb_red_ads1">3258418574477730_3258568577796063</string>
+
+    <string name="fb_all_ins_ads1">3258418574477730_3272397546413166</string>
+
+    //Unity
+    <string name="unity_game_id">4897728</string>
+    <string name="unity_interstitial">Interstitial_Android</string>
+    <string name="unity_rewarded">Rewarded_Android</string>
+
+
+    <string name="q1">বাংলাদেশের রাজধানী কোনটি?</string>
+    <string name="q1a">ঢাকা</string>
+    <string name="q1b">রংপুর</string>
+
+    <string name="q2">বাংলাদেশ কত সালে স্বাধীন হয়?</string>
+    <string name="q2a">১৯৫২</string>
+    <string name="q2b">১৯৭১</string>
+
+    <string name="q3">বাংলাদেশের জাতীয় ফল কোনটি?</string>
+    <string name="q3a">আম</string>
+    <string name="q3b">কাঁঠাল</string>
+
+    <string name="q4">আমাদের জাতীয় পতেকার রং কি?</string>
+    <string name="q4a">লাল ও সবুজ</string>
+    <string name="q4b">লাল ও নীল</string>
+
+    <string name="q5">বাংলাদেশের জাতীয় মাছ কোনটি?</string>
+    <string name="q5a">রুই</string>
+    <string name="q5b">ইলিশ</string>
+
+    <string name="q6">বাংলাদেশের জাতীয় ফুল কোনটি?</string>
+    <string name="q6a">জবা</string>
+    <string name="q6b">শাপলা</string>
+
+    <string name="q7">আমাদের রাষ্ট্রভাষা কি?</string>
+    <string name="q7a">বাংলা</string>
+    <string name="q7b">ইংরেজি</string>
+
+    <string name="q8">১৬-ই ডিসেম্বর কি?</string>
+    <string name="q8a">বিজয় দিবস</string>
+    <string name="q8b">স্বাধীনতা দিবস</string>
+
+    <string name="q9">বাংলাদেশে কয়টি জেলা?</string>
+    <string name="q9a">৬৪</string>
+    <string name="q9b">৬৮</string>
+
+    <string name="q10">বাংলাদেশের জাতীয় গাছ কি?</string>
+    <string name="q10a">আম গাছ</string>
+    <string name="q10b">কাঁঠাল গাছ</string>
+
+    <string name="q11">বাংলাদেশের জাতীয় পাখি কোনটি?</string>
+    <string name="q11a">টিয়া</string>
+    <string name="q11b">দোয়েল</string>
 
 </resources>

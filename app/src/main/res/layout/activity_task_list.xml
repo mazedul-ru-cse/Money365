@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/background_all"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".task.TaskList">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/button_color"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/daily_task"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="65dp"
+        android:orientation="vertical">
+
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:columnCount="2"
+            android:padding="14dp"
+            android:rowCount="2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/task_card_view1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="spin_task"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginRight="5dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/task1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="Spin Task"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/task_card_view2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:onClick="video_task"
+                android:layout_marginLeft="5dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/task2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="Video Task"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/task_card_view3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="youtube_task"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/task3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="Youtube Task"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/task_card_view4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:onClick="web_task"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/task4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="10dp"
+                        android:text="Web Task"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </GridLayout>
+
+        <com.startapp.sdk.ads.banner.Banner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

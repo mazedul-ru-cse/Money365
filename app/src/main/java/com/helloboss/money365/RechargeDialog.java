@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.helloboss.money365.requesthandler.RequestHandler;
+import com.startapp.sdk.adsbase.StartAppAd;
 
 import org.json.JSONObject;
 
@@ -39,6 +40,8 @@ public class RechargeDialog {
     public void showRechargeDialog(int minimumRegAmount){
         CheckBox box1, box2, box3;
         TextView rNumber, rCancel, rSubmit;
+
+        StartAppAd.showAd(context);
 
         try {
             dialog = new Dialog(context);

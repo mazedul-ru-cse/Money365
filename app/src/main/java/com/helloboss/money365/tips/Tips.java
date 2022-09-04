@@ -8,11 +8,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.helloboss.money365.ProgressDialogM;
 import com.helloboss.money365.R;
 import com.helloboss.money365.requesthandler.RequestHandler;
 import com.helloboss.money365.userguide.UserGuideAdapter;
 import com.helloboss.money365.userguide.UserGuideModel;
+import com.unity3d.ads.UnityAds;
+import com.unity3d.ads.UnityAdsShowOptions;
 
 import org.json.JSONObject;
 
@@ -25,7 +32,7 @@ public class Tips extends AppCompatActivity {
     TipsAdapter tipsAdapter;
     ArrayList<TipsModel> tipsModelArrayList;
     ProgressDialogM progressDialogM;
-
+    AdView adView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +44,32 @@ public class Tips extends AppCompatActivity {
         // Initialize Recycler View
         tipsView.setLayoutManager(new LinearLayoutManager(this));
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        try {
+            UnityAds.initialize(getApplicationContext(), getString(R.string.unity_game_id), false);
+            UnityAds.load("interstitialAds1");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
         //Progress bar
         progressDialogM = new ProgressDialogM(this);
         //Show notice
         getTips();
+    }
+
+    private void getAds() {
+        try {
+            UnityAds.show(this, "interstitialAds1", new UnityAdsShowOptions());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void getTips() {
@@ -105,6 +134,8 @@ public class Tips extends AppCompatActivity {
 
                         }
                         tipsAdapter.notifyDataSetChanged();
+
+                        getAds();
                     }
                 }catch (Exception e ){
 

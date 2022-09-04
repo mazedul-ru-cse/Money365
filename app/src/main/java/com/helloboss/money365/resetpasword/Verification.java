@@ -27,6 +27,7 @@ public class Verification extends AppCompatActivity {
         otpEdit = findViewById(R.id.otp_edit);
 
         otpNotice.setText(otpNotice.getText()+"\n"+ForgotPassword.otpEmail);
+
     }
 
     public void verify(View view) {

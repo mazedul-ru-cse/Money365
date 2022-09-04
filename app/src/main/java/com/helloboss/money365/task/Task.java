@@ -1,32 +1,29 @@
 package com.helloboss.money365.task;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import com.helloboss.money365.BreakTimer;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.helloboss.money365.Dashboard;
 import com.helloboss.money365.ProgressDialogM;
 import com.helloboss.money365.R;
 import com.helloboss.money365.StoreUserID;
 import com.helloboss.money365.requesthandler.RequestHandler;
+import com.helloboss.money365.tips.Tips;
 import com.helloboss.money365.workshow.InterstitialAdsShow;
+import com.startapp.sdk.adsbase.StartAppAd;
 
 import org.json.JSONObject;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.HashMap;
 
 public class Task extends AppCompatActivity {
@@ -35,11 +32,12 @@ public class Task extends AppCompatActivity {
     public static int taskNo = 1;
     public static String taskAds = "fb";
     public static String taskAdsTypes = "interstitial";
+    public static String placementId;
 
     Dialog dialog;
     ProgressDialogM progressDialogM;
     StoreUserID storeUserID;
-
+    AdView adView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +48,16 @@ public class Task extends AppCompatActivity {
         progressDialogM = new ProgressDialogM(this);
         storeUserID = new StoreUserID(this);
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+
         taskStatus();
+
+        StartAppAd.showAd(this);
 
     }
 
@@ -139,6 +146,7 @@ public class Task extends AppCompatActivity {
                     taskRange = obj.getInt("task_range");
                     taskAdsTypes = obj.getString("ads_type");
                     taskAds = obj.getString("ads");
+                    placementId = obj.getString("ads_p");
 
                     startActivity(new Intent(Task.this, InterstitialAdsShow.class));
                     finish();
@@ -156,5 +164,14 @@ public class Task extends AppCompatActivity {
             super.onPreExecute();
             progressDialogM.showDialog("Task loading..!");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        startActivity(new Intent(Task.this, TaskList.class));
+        finish();
+
     }
 }

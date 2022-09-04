@@ -9,6 +9,7 @@
     tools:context=".Withdraw">
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -184,6 +185,7 @@
                                 android:layout_height="70dp"/>
 
                             <TextView
+                                android:id="@+id/min_r"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -191,7 +193,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="5dp"
-                                android:text="50 TK"/>
+                                android:text="30 TK"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -233,6 +235,7 @@
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"/>
                             <TextView
+                                android:id="@+id/min_b"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -240,7 +243,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="5dp"
-                                android:text="300 TK"/>
+                                android:text="100 TK"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -284,6 +287,7 @@
                                 android:layout_height="70dp"/>
 
                             <TextView
+                                android:id="@+id/min_ro"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -291,7 +295,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="5dp"
-                                android:text="300 TK"/>
+                                android:text="100 TK"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -334,6 +338,7 @@
                                 android:layout_height="70dp"/>
 
                             <TextView
+                                android:id="@+id/min_no"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -341,7 +346,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:layout_marginTop="5dp"
-                                android:text="300 TK"/>
+                                android:text="100 TK"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -461,6 +466,5 @@
 
 
     </LinearLayout>
-
 
 </RelativeLayout>

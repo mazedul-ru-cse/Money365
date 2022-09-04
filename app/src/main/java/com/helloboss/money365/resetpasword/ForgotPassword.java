@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.helloboss.money365.ProgressDialogM;
 import com.helloboss.money365.R;
 import com.helloboss.money365.UserLogin;
@@ -26,7 +31,7 @@ public class ForgotPassword extends AppCompatActivity {
     EditText fPhone, fEmail;
     private ProgressDialogM progressDialogM;
     public static String otpCode,otpEmail;
-
+    AdView adView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,14 @@ public class ForgotPassword extends AppCompatActivity {
         fEmail = findViewById(R.id.f_email);
 
         progressDialogM = new ProgressDialogM(this);
+
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
     }
 
     public void reset_password(View view) {

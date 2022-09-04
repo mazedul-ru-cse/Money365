@@ -49,33 +49,31 @@
                     android:layout_height="wrap_content"/>
                 <CheckBox
                     android:id="@+id/mim_recharge1"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:text="50"
                     android:padding="5dp"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"/>
 
                 <CheckBox
                     android:id="@+id/mim_recharge2"
-                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:text="100"
                     android:textColor="@color/black"
                     android:padding="5dp"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:layout_height="wrap_content"/>
 
                 <CheckBox
                     android:id="@+id/mim_recharge3"
-                    android:layout_marginLeft="5dp"
                     android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:text="150"
                     android:textColor="@color/black"
                     android:padding="5dp"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     android:layout_height="wrap_content"/>
 
             </LinearLayout>

@@ -22,18 +22,23 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="10dp"
         android:orientation="vertical">
+
+        <com.startapp.sdk.ads.banner.Banner
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="10dp"
             android:id="@+id/user_guide_list"
             android:layout_width="match_parent"
             android:paddingBottom="10dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

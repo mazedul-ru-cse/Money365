@@ -4,18 +4,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.helloboss.money365.ProgressDialogM;
 import com.helloboss.money365.R;
 import com.helloboss.money365.requesthandler.RequestHandler;
+import com.unity3d.ads.UnityAds;
+import com.unity3d.ads.UnityAdsShowOptions;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class LeaderBoard extends AppCompatActivity {
 
@@ -24,6 +36,7 @@ public class LeaderBoard extends AppCompatActivity {
 
     LeaderBoardAdapter leaderBoardAdapter;
     ArrayList<LeaderBoardModel> leaderBoardModelArrayList;
+    AdView adView;
 
 
     @Override
@@ -36,10 +49,32 @@ public class LeaderBoard extends AppCompatActivity {
         // Initialize Recycler View
         leaderBoardView.setLayoutManager(new LinearLayoutManager(this));
 
+        try {
+            UnityAds.initialize(getApplicationContext(), getString(R.string.unity_game_id), false);
+            UnityAds.load("interstitialAds1");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+
         //Progress bar
         progressDialogM = new ProgressDialogM(this);
         //Show Notice board
         getLeaderBoard();
+    }
+
+    private void getAds() {
+        try {
+            UnityAds.show(this, "interstitialAds1", new UnityAdsShowOptions());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void getLeaderBoard(){
@@ -92,7 +127,7 @@ public class LeaderBoard extends AppCompatActivity {
 
                             //Get each json row
                             row = obj.getString(""+i);
-                            Log.i((i+1)+"",row);
+                           // Log.i((i+1)+"",row);
 
                             JSONObject data = new JSONObject(row);
                             //set notice to recycler view
@@ -104,7 +139,9 @@ public class LeaderBoard extends AppCompatActivity {
                             //set adapter
                             leaderBoardModelArrayList.add(leaderBoardModel);
                         }
+
                         leaderBoardAdapter.notifyDataSetChanged();
+                        getAds();
                     }
                 }catch (Exception e ){
                     e.getMessage();

@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.helloboss.money365.R;
+import com.startapp.sdk.adsbase.StartAppAd;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,7 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
                 try {
+                    StartAppAd.showAd(context);
                     Uri uri = Uri.parse(tipsModel.getLink());
                     context.startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 }catch (Exception e){
